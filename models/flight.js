@@ -3,32 +3,32 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const flightSchema = new Schema({
-  airline: String,
+  airline: {
+    type: String,
+    enum: [
+      'American Airlines', 
+      'Delta Air Lines', 
+      'Southwest Airlines', 
+      'United Airlines', 
+      'Ryanair', 
+      'Lufthansa', 
+      'Air China', 
+      'Emirates'
+    ]
+  },
   airport: { 
     type: String, 
-    default: 'MIA',
+    default: 'JFK',
     enum: [
       'ATL', 
-      'PEK', 
       'LAX', 
-      'HND', 
       'DXB', 
-      'ORD', 
       'LHR', 
-      'PVG', 
       'CDG', 
-      'DFW', 
       'AMS', 
-      'CAN', 
-      'FRA', 
       'IST', 
-      'DEN', 
-      'SIN', 
-      'ICN', 
-      'DEL', 
       'JFK', 
-      'SYD'
-    ],
+    ]
    },
   departs: { 
     type: Date, 
