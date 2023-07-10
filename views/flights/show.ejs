@@ -1,11 +1,62 @@
 <%- include('../partials/header') %>
 
+
+
 <section id="show-page">
-  <div>Flight to <%= flight.airport %></div>
-  <div><%= flight.departs.toLocaleDateString()%> | <%= flight.departs.toLocaleTimeString()%></div>
-  <div>Airline: <%= flight.airline %></div>
-  <div>Days until check-in: <%= (Math.ceil((flight.departs - new Date())/ (1000 * 60 * 60 * 24))) - 1%></div>
+<br>
+<h2>Flight from <%= flight.airport %></h2>
+<div><%= flight.airline %> #<%= flight.flightNo %></div>
+<br>
+  <div>Departs: <%= flight.departs.toLocaleDateString()%> | <%= flight.departs.toLocaleTimeString()%></div>
+  <br>
+
+  <% if (flight.destinations.length) { %>
+
+    <% let sortedFlights = [...flight.destinations];
+    sortedFlights.sort((a, b) => {
+      return new Date(a.arrival) - new Date(b.arrival);
+    }); %>
+    
+
+
+    <% sortedFlights.forEach(function(destination) { %>
+    <div>--> to <%= destination.airport %></div>
+    <div>Arrives: <%= destination.arrival.toLocaleDateString()%> | <%= destination.arrival.toLocaleTimeString()%></div>
+    <br>
+    <% }); %>
+  <% }; %>
+  <br>
+  <% const checkInCount = (Math.ceil((flight.departs - new Date())/ (1000 * 60 * 60 * 24))) - 1 %>
+  <div><%= checkInCount >= 0 ? `Days until check-in: ${checkInCount}` : `Flight was ${checkInCount * -1} days ago`  %></div>
+
+
 </section>
+
+<br>
+<br>
+
+
+<h3>Add a Destination</h3>
+<form id="add-destination-form" method="POST" action="/flights/<%= flight._id %>/destinations">
+<label>Airport:</label>
+  <select name="airport">
+    <% const allAirports = ['ATL', 'LAX', 'DXB', 'LHR', 'CDG', 'AMS', 'IST', 'JFK']; %>
+    <% allAirports.forEach(function(airportCode) { %>
+      <% if (!flight.destinations.some(dest => dest.airport === airportCode) && flight.airport !== airportCode) { %>
+        <option value="<%= airportCode %>"><%= airportCode %></option>
+      <% } %>
+    <% }) %>
+  </select>
+  <label>Arrival:</label>
+  <input type="datetime-local" name="arrival">
+  <input type="submit" value="Add Destination">
+</form>
+
+
+
+
+
+
 
 
 <%- include('../partials/footer') %>
