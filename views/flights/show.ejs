@@ -53,6 +53,14 @@
 </form>
 
 <br>
+<h3>Tickets:</h3>
+  <ul>
+    <%- tickets.map(function(ticket) {
+      return `<li>Seat: ${ticket.seat} | Price: £${ticket.price}</li>`;
+    }).join('') %>
+  </ul>
+
+<br>
 <a href="/flights/<%= flight._id %>/tickets/new"><button>New Ticket</button></a>
 
 
