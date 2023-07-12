@@ -5,9 +5,9 @@
 <section id="show-page">
 <br>
 <h2>Flight from <%= flight.airport %></h2>
-<div><%= flight.airline %> #<%= flight.flightNo %></div>
+<div><strong><%= flight.airline %> #<%= flight.flightNo %></strong></div>
 <br>
-  <div>Departs: <%= flight.departs.toLocaleDateString()%> | <%= flight.departs.toLocaleTimeString()%></div>
+  <div><strong>Departs:</strong> <%= flight.departs.toLocaleDateString()%> | <%= flight.departs.toLocaleTimeString()%></div>
   <br>
 
   <% if (flight.destinations.length) { %>
@@ -20,12 +20,12 @@
 
 
     <% sortedFlights.forEach(function(destination) { %>
-    <div>--> to <%= destination.airport %></div>
-    <div>Arrives: <%= destination.arrival.toLocaleDateString()%> | <%= destination.arrival.toLocaleTimeString()%></div>
+   
+    <div><strong>Arrives to <%= destination.airport %>:</strong> <%= destination.arrival.toLocaleDateString()%> | <%= destination.arrival.toLocaleTimeString()%></div>
     <br>
     <% }); %>
   <% }; %>
-  <br>
+  
   <% const checkInCount = (Math.ceil((flight.departs - new Date())/ (1000 * 60 * 60 * 24))) - 1 %>
   <div><%= checkInCount >= 0 ? `Days until check-in: ${checkInCount}` : `Flight was ${checkInCount * -1} days ago`  %></div>
 
@@ -33,12 +33,13 @@
 </section>
 
 <br>
-<br>
+
 
 
 <h3>Add a Destination</h3>
 <form id="add-destination-form" method="POST" action="/flights/<%= flight._id %>/destinations">
-<label>Airport:</label>
+  <div class="form-group">
+  <label>Airport:</label>
   <select name="airport">
     <% const allAirports = ['ATL', 'LAX', 'DXB', 'LHR', 'CDG', 'AMS', 'IST', 'JFK']; %>
     <% allAirports.forEach(function(airportCode) { %>
@@ -47,9 +48,15 @@
       <% } %>
     <% }) %>
   </select>
+  </div>
+  <br>
+  <div class="form-group">
   <label>Arrival:</label>
   <input type="datetime-local" name="arrival">
-  <input type="submit" value="Add Destination">
+  </div>
+  <br>
+  <button type="submit" class="btn btn-dark btn-sm">Add Destination</button>
+
 </form>
 
 <br>
@@ -60,8 +67,9 @@
     }).join('') %>
   </ul>
 
-<br>
-<a href="/flights/<%= flight._id %>/tickets/new"><button>New Ticket</button></a>
+
+<a href="/flights/<%= flight._id %>/tickets/new"><button type="submit" class="btn btn-dark btn-sm">New Ticket</button>
+</a>
 
 
 

@@ -1,7 +1,7 @@
 <%- include('../partials/header') %>
 <br>
 <h2>All Flights</h2>
-<table id="list">
+<table id="list" class="table" >
   <thead>
     <tr>
       <th>Departure</th>
@@ -18,13 +18,13 @@
       return new Date(a.departs) - new Date(b.departs);
     }); %>
     <% sortedFlights.forEach(function(flight) { %>
-      <tr class="<%= new Date(flight.departs) < new Date() ? 'past-flight' : '' %>">
+      <tr class="<%= new Date(flight.departs) < new Date() ? 'table-danger' : '' %>">
         <td><%= flight.departs.toLocaleDateString()%></td>
         <td><%= flight.airport %></td>
         <td><%= flight.airline %></td>
         <td><%= flight.flightNo %></td>
         <td><%= (flight.destinations.length - 1) <= 0 ? 'Non-Stop' : `${flight.destinations.length - 1} Stops`;  %></td>
-        <td><a href="/flights/<%= flight._id %>">DETAILS</a></td>
+        <td><a href="/flights/<%= flight._id %>" class="text-decoration-none"><button type="button" class="btn btn-dark btn-sm">DETAILS</button></a></td>
       </tr>
     <% }); %>
   </tbody>

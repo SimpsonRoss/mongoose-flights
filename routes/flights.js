@@ -22,4 +22,7 @@ router.get('/:id', flightsCtrl.show);
 // save a new flight
 router.post('/', flightsCtrl.create);
 
+// // delete a ticket from the flight page
+// router.delete('/:id', ticketsCtrl.delete);
+
 module.exports = router;

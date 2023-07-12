@@ -29,7 +29,13 @@ async function create(req, res) {
   res.redirect(`/flights/${flight._id}`)
 }
 
+// async function deleteOne(req, res) {
+
+//   const ticket = await Ticket.findById(req.params.id);
+// }
+
 module.exports = {
   new: newTicket,
   create,
+  // deleteOne
 };
