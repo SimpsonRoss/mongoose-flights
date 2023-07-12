@@ -1,0 +1,22 @@
+<!-- The new ticket page -->
+
+<%- include('../partials/header') %>
+
+<h1>Add New Ticket</h1>
+
+<form id="add-ticket-form" action="/tickets" method="POST">
+  <label>Seat:</label>
+  <input name="seat" required pattern="[A-F][1-9]\d?">
+  <label>Price:</label>
+  <input type="number" name="price">
+  <!-- <label>Flight:</label>
+  <input type="number" name="flight" value="<%= flight.flightNo %>">
+  <% console.log(flight); %>
+  <% console.log('flightNo'); %>
+  
+  <% console.log(flight.flightNo); %> -->
+
+  <input type="submit" value="Add Flight">
+</form>
+
+<%- include('../partials/footer') %>

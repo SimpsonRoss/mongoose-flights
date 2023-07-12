@@ -1,4 +1,5 @@
 const Flight = require('../models/flight');
+const Ticket = require('../models/ticket');
 
 async function index(req, res) {
   try {
@@ -12,11 +13,23 @@ async function index(req, res) {
   }
 }
 
+// Pass in all the tickets that have that flight ID (See Matthews comment in Homework)
+// async function getTickets(req, res){
+//   // get the flight document from the db 
+//   const flight = await Flight.findById(req.params.id)
+
+//   // get the tickets document from the db - passing the current flight id as a filter  
+//   const tickets = await Tickets.find({ flight: flight._id })
+  
+//   // render the view, sending both the flight and ticket data through
+//   res.render('myView/index', { flight, tickets })
+// }
 async function show(req, res) {
   try {
     const flight = await Flight.findById(req.params.id);
-
-    res.render('flights/show', { title: 'Flight Details', flight });
+    const tickets = await Ticket.find({ flight: flight._id })
+    console.log(tickets);
+    res.render('flights/show', { title: 'Flight Details', flight, tickets });
   } catch (err) {
     console.log(err);
 
