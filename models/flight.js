@@ -19,7 +19,7 @@ const destinationsSchema = new Schema({
       'JFK', 
     ]
    },
-  arrival: Date
+  arrival: { type: Date, required: true}
 });
 
 
